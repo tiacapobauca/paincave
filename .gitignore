@@ -1,0 +1,3 @@
+blender/out/*
+!blender/out/assets.json
+__pycache__/
