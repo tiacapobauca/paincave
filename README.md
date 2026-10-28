@@ -85,3 +85,31 @@ Les preferències de pantalla (2D/3D, càmera, so, zoom del mapa) són de cada d
 **Els altres ciclistes** van segons el teu FTP i el teu pes. El ritme base és el 72 % del teu FTP en W/kg (amb un mínim d'1,5 W/kg),
 i cadascun va entre el 72 % i el 130 % d'aquest ritme. En pla, en W/kg, fan entre el 52 % i el 94 % del teu FTP; a les pujades un 10 % més, i a les baixades
 gairebé no pedalen. Es calcula en començar cada recorregut, amb l'FTP i el pes que tinguis posats.
+
+---
+
+## 4. Versió realista (`realista.html`)
+
+És la mateixa app, amb el 3D refet a partir de models i textures fets amb **Blender**:
+bicicleta de carretera amb geometria real (rodes de perfil alt, discs, transmissió), ciclista modelat
+(casc amb ventilació, ulleres, sabatilles), pins, oliveres, garrovers, xiprers, mates, margallons i roques
+modelats amb branques i fulles, siluetes llunyanes renderitzades amb Cycles, i textures d'asfalt, terra,
+grava i marges de pedra en sec. Les dades (workouts, rutes, historial…) són les mateixes que les de l'app normal.
+
+S'obre a **`https://tiacapobauca.github.io/paincave/realista.html`**. L'app normal (`index.html`) no canvia.
+
+**Com es genera** (no s'ha d'editar `realista.html` a mà):
+
+```bash
+pip install bpy pillow numpy        # Blender com a mòdul de Python (només per refer els models)
+python3 blender/build.py            # models i textures → blender/out/assets.json (~1 min)
+python3 blender/make_realista.py    # index.html + assets.json + blender/realista.js → realista.html
+```
+
+Si només canvies `index.html`, n'hi ha prou amb el darrer pas: així la versió realista també té les millores.
+
+| Fitxer | Què fa |
+|---|---|
+| `blender/bike.py`, `rider.py`, `veg.py`, `textures.py` | modelen la bici, el ciclista, la vegetació i les textures |
+| `blender/realista.js` | substitueix les funcions del 3D de l'app per fer servir els models |
+| `blender/preview.py` | render ràpid d'un mòdul amb Cycles per revisar-lo (`python3 blender/preview.py bike prova.png`) |
