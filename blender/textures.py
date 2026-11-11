@@ -188,10 +188,70 @@ def stone():
     col, hgt = bake('stone', 512, 128, 4.0, 1.0, stone_graph, tile_v=False)
     return save(col, os.path.join(OUT, 'stone.png')), save(normal_map(hgt, 4.0), os.path.join(OUT, 'stoneN.png'), False)
 
+# ------------------------------------------------ terreny: herba seca, terra i roca (color, mosaic de 6 m)
+def ridge(N, scale, width, detail=3, offset=0.0, dist=0.0):
+    """Línies fines i orgàniques (esquerdes): on el soroll passa per 0,5."""
+    return N.math('LESS_THAN', N.math('ABSOLUTE', N.math('SUBTRACT', N.noise(scale, detail, 0.5, offset=offset, dist=dist), 0.5)), width)
+
+def tgrass_graph(N):
+    base = N.ramp(N.noise(0.45, 4, 0.6), [(0.3, (0.12, 0.17, 0.055)), (0.5, (0.27, 0.27, 0.11)), (0.7, (0.5, 0.42, 0.2))])
+    tuft = N.noise(9, 3, 0.75, offset=3)                              # mates d'herba: taques fosques i clares
+    col = N.mix(1.0, base, N.ramp(tuft, [(0.3, (0.45, 0.5, 0.4)), (0.5, (0.95, 0.95, 0.9)), (0.72, (1.5, 1.42, 1.2))]), 'MULTIPLY')
+    blade = N.ramp(N.noise(45, 2, 0.8, offset=5), [(0.3, (0.5, 0.5, 0.5)), (0.72, (1.4, 1.4, 1.3))])
+    col = N.mix(1.0, col, blade, 'MULTIPLY')
+    bare = N.math('GREATER_THAN', N.noise(1.3, 4, 0.7, offset=9), 0.63)
+    col = N.mix(N.math('MULTIPLY', bare, 0.75), col, N.ramp(N.noise(20, 2, offset=1), [(0.3, (0.2, 0.13, 0.08)), (0.7, (0.36, 0.25, 0.15))]))
+    stone = N.math('MULTIPLY', N.math('LESS_THAN', N.voronoi(9, offset=2), 0.2), N.math('GREATER_THAN', N.noise(2.5, 2, offset=6), 0.58))
+    col = N.mix(stone, col, (0.52, 0.5, 0.45))
+    hgt = N.math('ADD', N.math('ADD', N.math('MULTIPLY', tuft, 0.8), N.math('MULTIPLY', N.noise(45, 2, 0.8, offset=5), 0.5)), N.math('MULTIPLY', stone, 0.4))
+    return col, hgt
+
+def tsoil_graph(N):
+    base = N.ramp(N.noise(0.8, 5, 0.65), [(0.3, (0.22, 0.11, 0.065)), (0.55, (0.35, 0.19, 0.105)), (0.75, (0.47, 0.3, 0.18))])
+    clod = N.ramp(N.noise(7, 4, 0.7, offset=2), [(0.3, (0.6, 0.6, 0.6)), (0.7, (1.25, 1.25, 1.25))])
+    col = N.mix(1.0, base, clod, 'MULTIPLY')
+    d = N.voronoi(10); pc = N.voronoi(10, out='Color')
+    peb = N.math('MULTIPLY', N.math('LESS_THAN', d, 0.24), N.math('GREATER_THAN', N.noise(1.5, 2, offset=3), 0.5))
+    col = N.mix(peb, col, N.mix(0.65, pc, (0.5, 0.46, 0.4)))
+    crack = N.math('MULTIPLY', ridge(N, 1.1, 0.004, 3, 4.0, 0.6), N.math('GREATER_THAN', N.noise(0.5, 2, offset=12), 0.45))
+    col = N.mix(N.math('MULTIPLY', crack, 0.7), col, (0.07, 0.04, 0.03))
+    weed = N.math('GREATER_THAN', N.noise(6, 4, 0.75, offset=15), 0.7)
+    col = N.mix(N.math('MULTIPLY', weed, 0.6), col, (0.25, 0.26, 0.1))
+    grain = N.ramp(N.noise(55, 2, 0.6, offset=8), [(0.3, (0.75, 0.75, 0.75)), (0.7, (1.2, 1.2, 1.2))])
+    col = N.mix(1.0, col, grain, 'MULTIPLY')
+    hgt = N.math('ADD', N.math('MULTIPLY', peb, 0.6), N.math('SUBTRACT', N.math('MULTIPLY', N.noise(7, 4, 0.7, offset=2), 0.9), crack))
+    return col, hgt
+
+def trock_graph(N):
+    strata = N.ramp(N.noise(0.45, 7, 0.75, dist=2.0), [(0.25, (0.27, 0.25, 0.22)), (0.5, (0.45, 0.43, 0.39)), (0.75, (0.64, 0.62, 0.57))])
+    crack = N.math('MAXIMUM', ridge(N, 0.6, 0.006, 4, 1.0, 1.0), ridge(N, 1.7, 0.004, 3, 6.0, 0.5))
+    col = N.mix(N.math('MULTIPLY', crack, 0.85), strata, (0.06, 0.055, 0.05))
+    pit = N.math('GREATER_THAN', N.noise(11, 3, 0.7, offset=4), 0.66)                # forats de la calcària (rascler)
+    col = N.mix(N.math('MULTIPLY', pit, 0.5), col, (0.16, 0.15, 0.14))
+    lichen = N.math('GREATER_THAN', N.noise(3.5, 4, 0.7, offset=7), 0.67)
+    col = N.mix(N.math('MULTIPLY', lichen, 0.5), col, (0.45, 0.4, 0.16))
+    moss = N.math('GREATER_THAN', N.noise(2.2, 4, 0.7, offset=17), 0.7)
+    col = N.mix(N.math('MULTIPLY', moss, 0.6), col, (0.14, 0.17, 0.07))
+    hgt = N.math('SUBTRACT', N.math('MULTIPLY', N.noise(0.45, 7, 0.75, dist=2.0), 1.2), N.math('ADD', crack, N.math('MULTIPLY', pit, 0.4)))
+    return col, hgt
+
+def terrain_tex(name, graph):
+    col, hgt = bake(name, 512, 512, 6.0, 6.0, graph)
+    h = (hgt - hgt.min()) / max(1e-6, hgt.max() - hgt.min())
+    col = col * (0.7 + 0.45 * h)[..., None]                    # cavitats més fosques (il·luminació de detall dins el color)
+    m = col.reshape(-1, 3).mean(0)
+    print('   %s color mitjà (lineal)' % name, [round(float(x), 3) for x in m])
+    return save(col, os.path.join(OUT, name + '.png')), [float(x) for x in m]
+
+TERRAIN = {}
+
 def build():
     print('textures')
     out = {}
     for nm, fn in (('road', road), ('ground', ground), ('dirt', dirt), ('stone', stone)):
         a, b = fn()
         out[nm] = (a, 82); out[nm + 'N'] = (b, 88)
+    for nm, g in (('tgrass', tgrass_graph), ('tsoil', tsoil_graph), ('trock', trock_graph)):
+        p, mean = terrain_tex(nm, g)
+        out[nm] = (p, 80); TERRAIN[nm] = mean
     return out

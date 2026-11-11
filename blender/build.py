@@ -1,29 +1,57 @@
-"""Genera tots els recursos 3D de la versió realista: python3 blender/build.py
-Sortida: blender/out/assets.json amb les malles (gzip + base64) i les textures (WebP en base64)."""
-import sys, os, json, base64, io
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+"""Genera els recursos 3D de l'app amb Blender (bpy):  python3 blender/build.py [etapes]
+
+Etapes: bike rider body veg tex sky  (sense arguments: totes). Cada etapa desa el resultat a blender/out/,
+de manera que se'n pot refer només una. Al final sempre es munta la carpeta assets/ de l'app:
+  assets/g3.bin   malles (quantitzades + gzip)      assets/*.webp   textures
+  assets/g3.json  índex: versió, textures, siluetes dels arbres, colors del cel i del terreny
+"""
+import sys, os, json, io, pickle, time
+D = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, D)
 import bpy
 from common import *
-import bike, rider, veg, textures
 from PIL import Image
 
-OUT = veg.OUT
-only = sys.argv[1:]
+OUT = os.path.join(D, 'out'); ASSETS = os.path.join(os.path.dirname(D), 'assets')
+os.makedirs(OUT, exist_ok=True); os.makedirs(ASSETS, exist_ok=True)
+STAGES = ['bike', 'rider', 'body', 'veg', 'tex', 'sky']
+todo = [a for a in sys.argv[1:] if a in STAGES] or STAGES
+
+def stash(name, obj): pickle.dump(obj, open(os.path.join(OUT, name + '.pkl'), 'wb'))
+def fetch(name): return pickle.load(open(os.path.join(OUT, name + '.pkl'), 'rb'))
+
+for st in todo:
+    t = time.time()
+    if st == 'bike':
+        import bike; p = Pack(); bike.build(p); stash('bike', p)
+    elif st == 'rider':
+        import rider; p = Pack(); rider.build(p); stash('rider', p)
+    elif st == 'body':
+        import body; p = Pack(); body.build(p); stash('body', p)
+    elif st == 'veg':
+        import veg; p = Pack(); reset(); veg.build_sprites(); imp = veg.build(p, os.path.join(OUT, 'leaves.png')); stash('veg', (p, imp))
+    elif st == 'tex':
+        import textures; tex = textures.build(); stash('tex', (tex, textures.TERRAIN))
+    elif st == 'sky':
+        import sky; stash('sky', sky.build())
+    print('== %s: %.0f s' % (st, time.time() - t))
+
+# ---------------------------------------------------------------- muntatge
 pack = Pack()
-bike.build(pack)
-rider.build(pack)
-reset(); veg.build_sprites()
-imp = veg.build(pack, os.path.join(OUT, 'leaves.png'))
-tex = textures.build()
-
-def webp(path, q=82, size=None):
+pack.merge(fetch('bike')); pack.merge(fetch('rider')); pack.merge(fetch('body'))
+vp, imp = fetch('veg'); pack.merge(vp)
+tex, terrain = fetch('tex'); skym = fetch('sky')
+blob = pack.blob(); open(os.path.join(ASSETS, 'g3.bin'), 'wb').write(blob)
+files = dict(leaves=(os.path.join(OUT, 'leaves.png'), 86), impostors=(os.path.join(OUT, 'impostors.png'), 86), sky=(os.path.join(OUT, 'sky.png'), 90), **tex)
+SIZE = dict(roadN=(256, 512))
+sizes = {'g3.bin': len(blob)}
+for k, (path, q) in files.items():
     im = Image.open(path)
-    if size: im = im.resize(size, Image.LANCZOS)
-    b = io.BytesIO(); im.save(b, 'WEBP', quality=q, method=6)
-    return 'data:image/webp;base64,' + base64.b64encode(b.getvalue()).decode()
-
-data = dict(mesh=b64(pack.blob()), imp=imp,
-            tex=dict(leaves=webp(os.path.join(OUT, 'leaves.png'), 85), impostors=webp(os.path.join(OUT, 'impostors.png'), 85),
-                     **{k: webp(p, q, (256, 512) if k == 'roadN' else None) for k, (p, q) in tex.items()}))
-json.dump(data, open(os.path.join(OUT, 'assets.json'), 'w'))
-print('mida total: %.0f kB' % (len(json.dumps(data)) / 1024), {k: len(v) // 1024 for k, v in data['tex'].items()}, 'malles', len(data['mesh']) // 1024)
+    if k in SIZE: im = im.resize(SIZE[k], Image.LANCZOS)
+    im.save(os.path.join(ASSETS, k + '.webp'), 'WEBP', quality=q, method=6)
+    sizes[k] = os.path.getsize(os.path.join(ASSETS, k + '.webp'))
+old = {}
+try: old = json.load(open(os.path.join(ASSETS, 'g3.json')))
+except Exception: pass
+meta = dict(v=int(old.get('v', 0)) + 1, tex=sorted(files), imp=imp, sky=skym, terrain=terrain)
+json.dump(meta, open(os.path.join(ASSETS, 'g3.json'), 'w'), separators=(',', ':'))
+print('assets/: %.0f kB' % (sum(sizes.values()) / 1024), {k: v // 1024 for k, v in sizes.items()})

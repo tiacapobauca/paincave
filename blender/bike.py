@@ -256,13 +256,16 @@ def build(pack):
     fr = join(frame() + handlebar() + saddle_post() + drivetrain(), 'bike')
     bake_ao([fr], strength=0.55, dist=0.15)
     pack.add('bike', fr)
+    decimate(fr, 0.22); pack.add('bike1', fr)        # versió lleugera per als altres ciclistes
     reset()
     wh = join(wheel(), 'wheel')
     bake_ao([wh], strength=0.4, dist=0.05)
     pack.add('wheel', wh)
+    decimate(wh, 0.3); pack.add('wheel1', wh)
     reset()
     ck = join(crankset(), 'crank')
     pack.add('crank', ck)
+    decimate(ck, 0.3); pack.add('crank1', ck)
 
 def preview_objs():
     a = join(frame() + handlebar() + saddle_post() + drivetrain(), 'bike')

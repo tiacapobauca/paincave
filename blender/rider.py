@@ -245,9 +245,11 @@ PARTS = ['torso', 'thigh', 'calf', 'uarm', 'farm', 'head', 'helmet', 'glasses', 
 def build(pack):
     print('ciclista')
     for nm in PARTS:
+        if nm not in ('head', 'helmet', 'glasses', 'shoe'): continue      # la resta del cos és ara una sola malla (body.py)
         reset()
         ob = globals()[nm]()
         pack.add('r_' + nm, ob)
+        if nm != 'glasses': decimate(ob, 0.35); pack.add('r_' + nm + '1', ob)
 
 def preview_objs():
     out = []

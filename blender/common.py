@@ -192,7 +192,7 @@ def displace_noise(ob, amp, freq, seed=0, octaves=3, axis_scale=(1, 1, 1)):
         v.co = p + v.normal * d * amp
 
 # ---------------------------------------------------------------- export
-def mesh_data(ob):
+def mesh_data(ob, vattr=None):
     """Dades d'una malla en eixos de l'app: llistes de vèrtexs desdoblats per cantonada (amb dedup)."""
     dg = bpy.context.evaluated_depsgraph_get()
     oe = ob.evaluated_get(dg)
@@ -202,7 +202,7 @@ def mesh_data(ob):
     col = me.color_attributes.get('Col')
     uvl = me.uv_layers.active
     cn = me.corner_normals
-    key2i, P, N, C, U = {}, [], [], [], []
+    key2i, P, N, C, U, X = {}, [], [], [], [], []
     groups = {}
     for tri in me.loop_triangles:
         mi = tri.material_index
@@ -218,15 +218,16 @@ def mesh_data(ob):
             na = (round(n.x, 2), round(n.z, 2), round(-n.y, 2))
             ca = tuple(round(x, 3) for x in c)
             ua = (round(u[0], 4), round(u[1], 4))
-            k = (pa, na, ca, ua)
+            xa = vattr[v.index] if vattr is not None else None
+            k = (pa, na, ca, ua, xa)
             i = key2i.get(k)
             if i is None:
                 i = len(P); key2i[k] = i
-                P.append(pa); N.append(na); C.append(ca); U.append(ua)
+                P.append(pa); N.append(na); C.append(ca); U.append(ua); X.append(xa)
             idx.append(i)
         groups.setdefault(mi, []).extend(idx)
     oe.to_mesh_clear()
-    return dict(P=P, N=N, C=C, U=U, groups=groups, has_uv=bool(uvl), has_col=bool(col))
+    return dict(P=P, N=N, C=C, U=U, X=X, groups=groups, has_uv=bool(uvl), has_col=bool(col))
 
 class Pack:
     """Paquet binari de malles: capçalera JSON + blocs (posicions int16, normals int8, colors uint8, uv uint16, índexs)."""
@@ -238,11 +239,12 @@ class Pack:
         off = len(self.buf); self.buf += b
         return off
 
-    def add(self, name, ob):
+    def add(self, name, ob, skin=None, extra=None):
+        """skin: per vèrtex de la malla, ((i0, i1, i2, i3), (w0, w1, w2, w3)) amb pesos 0-255; extra: dades JSON (userData)."""
         obs = ob if isinstance(ob, (list, tuple)) else [ob]
         d = None
         for o in obs:   # diverses malles en una (p. ex. tronc + fulles amb normals pròpies)
-            e = mesh_data(o)
+            e = mesh_data(o, skin)
             if d is None: d = e; continue
             off = len(d['P'])
             for k in 'PNCU': d[k] += e[k]
@@ -255,6 +257,7 @@ class Pack:
         pos = struct.pack('<%dh' % (nv * 3), *[q(p[k], mn[k], mx[k]) for p in P for k in range(3)])
         nor = struct.pack('<%db' % (nv * 3), *[max(-127, min(127, int(round(n[k] * 127)))) for n in N for k in range(3)])
         m = dict(n=name, v=nv, b=mn + mx, a={})
+        if extra: m['x'] = extra
         m['a']['p'] = self._put(pos); m['a']['n'] = self._put(nor)
         if d['has_col']:
             m['a']['c'] = self._put(bytes(max(0, min(255, int(round(c[k] ** (1 / 2.2) * 255)))) for c in C for k in range(3)))
@@ -262,6 +265,8 @@ class Pack:
             u0 = [min(u[k] for u in U) for k in range(2)]; u1 = [max(u[k] for u in U) for k in range(2)]
             m['ub'] = u0 + u1
             m['a']['u'] = self._put(struct.pack('<%dH' % (nv * 2), *[int(round((u[k] - u0[k]) / ((u1[k] - u0[k]) or 1) * 65535)) for u in U for k in range(2)]))
+        if skin is not None:
+            m['a']['s'] = self._put(bytes(i for x in d['X'] for i in x[0])); m['a']['w'] = self._put(bytes(w for x in d['X'] for w in x[1]))
         idx, groups = [], []
         for mi in sorted(d['groups']):
             g = d['groups'][mi]; groups.append([len(idx), len(g), mi]); idx += g
@@ -271,6 +276,14 @@ class Pack:
         self.meshes.append(m)
         print('  %-14s %6d vèrtexs %6d triangles' % (name, nv, len(idx) // 3))
         return m
+
+    def merge(self, other):
+        """Afegeix les malles d'un altre paquet (els desplaçaments es recalculen)."""
+        while len(self.buf) % 4: self.buf.append(0)
+        off = len(self.buf); self.buf += other.buf
+        for m in other.meshes:
+            m = dict(m); m['a'] = {k: v + off for k, v in m['a'].items()}
+            self.meshes.append(m)
 
     def blob(self):
         head = json.dumps(dict(m=self.meshes), separators=(',', ':')).encode()

@@ -1,3 +1,2 @@
-blender/out/*
-!blender/out/assets.json
+blender/out/
 __pycache__/

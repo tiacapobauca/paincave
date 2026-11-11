@@ -2,8 +2,10 @@
    L'app funciona sense connexió: es guarda una còpia de cada fitxer propi.
    Sempre prova primer la xarxa (així, quan publiques una versió nova, es fa servir de seguida)
    i només si no n'hi ha fa servir la còpia. Les fonts de Google es guarden en memòria cau. */
-const CACHE = 'paincave-v3';
-const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
+const CACHE = 'paincave-v4';
+const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png',
+  './assets/g3.json', './assets/g3.bin', './assets/hero.webp',
+  ...['sky', 'leaves', 'impostors', 'road', 'roadN', 'ground', 'groundN', 'dirt', 'dirtN', 'stone', 'stoneN', 'tgrass', 'tsoil', 'trock'].map(k => './assets/' + k + '.webp')];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
