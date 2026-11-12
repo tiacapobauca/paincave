@@ -1,4 +1,4 @@
-# PainCave ERG · v3
+# PainCave ERG · v4
 
 App web per al rodet **Wahoo Kickr Core** (mode ERG i rutes simulades) amb el pols del **Garmin**.
 Funciona a Chrome (Android i Windows) per Bluetooth. Aquesta carpeta és l'app sencera:
@@ -8,6 +8,9 @@ Funciona a Chrome (Android i Windows) per Bluetooth. Aquesta carpeta és l'app s
 | `index.html` | l'app (tot en un sol fitxer; també funciona si l'obres directament) |
 | `manifest.webmanifest`, `sw.js` | fan que es pugui **instal·lar** i que funcioni **sense connexió** |
 | `icon-*.png` | icones de l'app |
+| `assets/` | models 3D, textures i cel fets amb Blender (l'app els carrega quan s'obre des del web) |
+| `blender/` | els programes que generen `assets/` (no calen per fer servir l'app) |
+| `versions/` | **còpia de cada versió anterior** de l'app (`versions/v3/index.html` és la v3 sencera) |
 
 ---
 
@@ -68,20 +71,46 @@ Les preferències de pantalla (2D/3D, càmera, so, zoom del mapa) són de cada d
 
 ---
 
-## 3. Novetats d'aquesta versió
+## 3. Novetats de la versió 4
 
-- **Voltes lliures:** si un track acaba on comença, és un **circuit**. Per defecte es roda en **Lliure** (acabes quan vols amb *Fi*); amb − / + pots fixar el nombre de voltes.
-  Durant el recorregut, **Última volta** fa que acabis en passar per meta. Cada volta es desa com a volta al `.fit`.
-- **Fantasma de la millor volta** als circuits (a les rutes obertes, el de la ruta sencera).
-- **Mapa un 15 % més gran** amb tres zooms (toca'l): *tot el recorregut*, *zona 2 km* i *a prop 600 m*. Hi surten els altres ciclistes i el fantasma.
-- **Gràfics 3D:**
-  - on el recorregut torna pel mateix lloc, les dues passades són una sola carretera de doble sentit (abans se solapaven);
-  - encreuaments a nivell, ponts quan un tram passa per damunt d'un altre i murs de contenció entre trams propers a diferent altura;
-  - res de vegetació, fites ni murs damunt l'asfalt;
-  - ciclista nou (tors, espatlles, braços) i pedaleig en el sentit correcte.
-- **Historial** de sessions (7 i 30 dies: hores, TSS i km).
-- **App instal·lable** i **sincronització amb Google Drive**.
+- **Gràfics 3D fets amb Blender**, ara dins l'app normal (ja no hi ha `realista.html`):
+  - **cel real** amb núvols volumètrics (renderitzat amb Cycles), que també il·lumina l'escena i es reflecteix a la bici;
+  - **ciclista d'una sola peça** amb articulacions suaus (malla amb ossos), casc, ulleres i sabatilles modelats, i bicicleta de carretera detallada;
+  - **terreny amb textures** d'herba, terra i roca que es barregen segons el lloc;
+  - pins, oliveres, garrovers, xiprers, margallons, mates i roques modelats.
+  Si s'obre `index.html` directament com a fitxer (sense web), es fan servir els gràfics senzills d'abans.
+- **Mode cursa** (botó **Cursa** a cada ruta, o **Cursa ràpida** a la portada): tries 5–20 rivals i el nivell (*Fàcil*, *Igualat*, *Dur*,
+  relatiu al teu FTP en W/kg), compte enrere i sortida en grup. Els rivals són escaladors, rodadors o esprintadors: surten forts,
+  van a roda, ataquen i esprinten al final. **El rebuf és automàtic** (fins a un 32 % menys d'aire). Classificació en viu, podi i
+  taula de temps al final; el resultat es desa a l'historial.
+- **Aspecte nou**: portada amb imatge i resum de la setmana, dispositius més compactes, pestanyes fixes i targetes en dues columnes a l'ordinador.
+  Les dades i la sincronització són al plegable de baix de tot.
+- **Còpia de la versió anterior**: `versions/v3/index.html` (a la web: `…/paincave/versions/v3/`). Fa servir les mateixes dades.
 
-**Els altres ciclistes** van segons el teu FTP i el teu pes. El ritme base és el 72 % del teu FTP en W/kg (amb un mínim d'1,5 W/kg),
-i cadascun va entre el 72 % i el 130 % d'aquest ritme. En pla, en W/kg, fan entre el 52 % i el 94 % del teu FTP; a les pujades un 10 % més, i a les baixades
-gairebé no pedalen. Es calcula en començar cada recorregut, amb l'FTP i el pes que tinguis posats.
+De la versió 3 es mantenen les voltes lliures, el fantasma, el mapa amb tres zooms, l'historial, la instal·lació i la sincronització amb Google Drive.
+
+**Els altres ciclistes (fora de cursa)** van segons el teu FTP i el teu pes. El ritme base és el 72 % del teu FTP en W/kg (amb un mínim d'1,5 W/kg),
+i cadascun va entre el 72 % i el 130 % d'aquest ritme.
+
+---
+
+## 4. Com es generen els gràfics (`blender/` → `assets/`)
+
+Només cal si vols canviar models o textures. Blender es fa servir com a mòdul de Python, sense obrir el programa:
+
+```bash
+pip install bpy pillow numpy
+python3 blender/build.py                 # tot (el cel triga uns minuts)
+python3 blender/build.py body veg        # o només algunes etapes: bike rider body veg tex sky
+```
+
+Cada etapa es desa a `blender/out/` i al final sempre es torna a muntar `assets/` (`g3.bin` amb les malles, les textures `.webp`
+i `g3.json` amb l'índex i els colors del cel). `assets/hero.webp` és una captura de l'app per a la portada.
+
+| Fitxer | Què fa |
+|---|---|
+| `blender/bike.py`, `rider.py`, `body.py` | bicicleta, cap/casc/ulleres/sabatilles i cos amb ossos |
+| `blender/veg.py`, `textures.py`, `sky.py` | vegetació, textures (carretera, terreny, pedra) i cel amb núvols |
+| `blender/preview.py` | render ràpid d'un mòdul per revisar-lo (`python3 blender/preview.py bike prova.png`) |
+
+**Abans de publicar una versió nova**, copia l'`index.html` actual a `versions/vN/` perquè l'anterior no es perdi mai.

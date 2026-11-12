@@ -145,6 +145,34 @@
   /* ---------- Resum ---------- */
   .overlay{position:fixed;inset:0;background:rgba(6,10,14,.92);display:none;align-items:center;justify-content:center;padding:16px;z-index:50;overflow:auto}
   .overlay.show{display:flex}
+  .racecard h3{font-family:var(--num);letter-spacing:.14em;font-size:14px;color:var(--muted);margin-bottom:4px}
+  .rcname{font-size:20px;font-weight:700;margin-bottom:14px}
+  .rcrow{display:flex;align-items:center;gap:12px;margin:10px 0}
+  .rcrow>span{flex:0 0 64px;font-size:13px;color:var(--muted)}
+  .rcrow .lapsel{flex:1;margin:0}
+  .seg{flex:1;display:flex;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:3px;gap:3px}
+  .seg button{flex:1;border:0;background:transparent;padding:9px 4px;border-radius:9px;font-family:var(--num);font-weight:600;font-size:14px;color:var(--muted)}
+  .seg button.on{background:var(--zone);color:#08131C}
+  .rcinfo{font-size:13px;line-height:1.45;color:var(--muted);margin:12px 0 16px}
+  .rcount{position:absolute;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;gap:6px;pointer-events:none;z-index:4;
+    font-family:var(--num);font-weight:700;color:#fff;text-shadow:0 4px 24px rgba(0,0,0,.65);background:radial-gradient(closest-side,rgba(6,10,14,.45),transparent)}
+  .rcount b{font-size:min(30vw,170px);line-height:1}
+  .rcount span{font-size:15px;letter-spacing:.16em}
+  .rcount.go b{color:#7BE6BE}
+  .racebox{margin:4px 0 14px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .racebox .pod{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line)}
+  .racebox .pod div{background:var(--panel2);padding:10px 6px;text-align:center;font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .racebox .pod div b{display:block;font-family:var(--num);font-size:20px;color:#E8C13F}
+  .racebox .pod div:nth-child(2) b{color:#C9D2DA}.racebox .pod div:nth-child(3) b{color:#D08A55}
+  .racebox .pod div.me{box-shadow:inset 0 0 0 2px var(--zone)}
+  .racebox .rl{max-height:190px;overflow:auto}
+  .racebox .rl div{display:flex;align-items:center;gap:8px;padding:6px 10px;font-size:13.5px;border-top:1px solid var(--line)}
+  .racebox .rl div.me{background:rgba(62,155,214,.16);font-weight:700}
+  .racebox .rl i{width:9px;height:9px;border-radius:50%;flex:none}
+  .racebox .rl .p{flex:0 0 26px;font-family:var(--num);color:var(--muted)}
+  .racebox .rl .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .racebox .rl .t{font-family:var(--num);color:var(--muted)}
+  .wcard .row button.race{flex:0 0 auto;border-color:var(--zone);color:var(--zone);font-weight:700}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;width:100%;max-width:420px;max-height:96vh;overflow:auto}
   .card h3{font-family:var(--num);letter-spacing:.1em;font-size:15px;margin-bottom:14px;color:var(--zone)}
   .sum{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px;margin-bottom:14px}
@@ -289,6 +317,43 @@
     #sim.imm .hud-pw b{font-size:48px}
   }
 
+  /* ---------- Aspecte de la versió 4 ---------- */
+  body{background:radial-gradient(1100px 460px at 50% -140px,#17304a 0%,rgba(23,48,74,0) 70%),var(--bg);background-attachment:fixed}
+  .hero{position:relative;border-radius:20px;overflow:hidden;min-height:210px;display:flex;align-items:flex-end;border:1px solid var(--line);margin-bottom:6px;
+    background:linear-gradient(180deg,rgba(8,13,18,.05) 0%,rgba(8,13,18,.35) 45%,rgba(8,13,18,.92) 100%),url(assets/hero.webp) center 38%/cover,linear-gradient(160deg,#2c5b86,#1b3150 55%,#0f1a24)}
+  .hero-in{padding:18px 18px 16px;width:100%}
+  .hero-k{font-family:var(--num);font-size:11.5px;letter-spacing:.2em;color:#9FCBE6;font-weight:600}
+  .hero-t{font-family:var(--num);font-weight:700;font-size:clamp(22px,4.2vw,34px);line-height:1.12;margin:6px 0 6px;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+  .hero-s{font-size:13.5px;color:#C9D6E0;min-height:18px}
+  .hero-s b{font-family:var(--num);color:#fff}
+  .hero-b{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .hero-b button{padding:11px 18px;border-radius:999px;font-weight:700;font-size:14.5px}
+  .hero-b .ghost{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.28);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  .wcard{background:linear-gradient(180deg,#18212B,#131A22);transition:border-color .2s,transform .2s}
+  .wcard:hover{border-color:#34485C}
+  .dev{background:linear-gradient(180deg,#18212B,#131A22)}
+  .tabs{position:sticky;top:8px;z-index:6;background:rgba(21,28,36,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:999px}
+  .tab{border-radius:999px}
+  .tab.on{background:var(--zone);color:#08131C;box-shadow:none}
+  .fold{margin-top:26px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+  .fold>summary{cursor:pointer;font-family:var(--num);font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .fold[open]>summary{margin-bottom:12px}
+  .ver{text-align:center;font-size:12px;color:var(--dim);margin-top:18px}
+  @media (min-width:900px){
+    #home{max-width:1060px;padding-top:22px}
+    .hero{min-height:300px}
+    .hero-in{padding:26px 28px 24px}
+    .devices.dv3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    #home .wlist{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+    #home .rset{max-width:520px}
+    #home .newrow{max-width:520px}
+  }
+  @media (max-width:520px){
+    .hero{min-height:300px;background:linear-gradient(180deg,rgba(8,13,18,0) 0%,rgba(8,13,18,.5) 38%,rgba(8,13,18,.95) 78%),url(assets/hero.webp) center top/100% auto no-repeat,#0f1a24}
+    .dev{padding:9px 12px}
+    .dev .name{font-size:14px}
+    .dev button{padding:7px 12px;font-size:13.5px}
+  }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -341,8 +406,21 @@
     ⚠️ Aquest entorn no permet Bluetooth. <b>Descarrega aquest fitxer i obre’l amb Chrome al teu Android</b> per connectar el Kickr i el Garmin.
   </div>
 
+  <div class="hero" id="hero">
+    <div class="hero-in">
+      <div class="hero-k">RUTES 3D · CURSES · ERG</div>
+      <div class="hero-t">Surt a rodar sense sortir de casa</div>
+      <div class="hero-s" id="heroStats"></div>
+      <div class="hero-b">
+        <button class="go" onclick="heroGo('r')">Rutes 3D</button>
+        <button class="ghost" onclick="openRace(SERRA)">Cursa ràpida</button>
+        <button class="ghost" onclick="heroGo('w')">Workouts</button>
+      </div>
+    </div>
+  </div>
+
   <h2>Dispositius</h2>
-  <div class="devices">
+  <div class="devices dv3">
     <div class="dev" id="devTrainer">
       <div class="dot"></div>
       <div class="info"><div class="name">Corró · Kickr Core</div><div class="sub" id="trainerSub">Sense connectar</div></div>
@@ -359,31 +437,6 @@
       <button onclick="connectCad()">Connecta</button>
     </div>
   </div>
-  <p class="hint" style="margin-top:10px">
-    Quan acabis, desa la sessió com a <b>.fit</b> i importa-la a Garmin Connect: compta com a ciclisme indoor (o virtual, si has rodat una ruta) amb potència, pols i intervals.
-  </p>
-
-  <h2>Dades</h2>
-  <div class="devices">
-    <div class="dev" id="devSync">
-      <div class="dot"></div>
-      <div class="info"><div class="name">Google Drive</div><div class="sub" id="syncSub">No connectat · el progrés només es desa en aquest dispositiu</div></div>
-      <button id="syncBtn" onclick="syncNow(true)">Connecta</button>
-    </div>
-  </div>
-  <div class="datarow">
-    <button onclick="exportBackup()">Exporta còpia</button>
-    <button onclick="$('bkFile').click()">Importa còpia</button>
-    <button id="installBtn" style="display:none" onclick="installApp()">Instal·la l’app</button>
-  </div>
-  <input type="file" id="bkFile" accept=".json,application/json" hidden>
-  <details class="synccfg" id="syncCfg">
-    <summary>Configuració de la sincronització</summary>
-    <label>Client ID de Google<input id="gcid" placeholder="000000000000-xxxx.apps.googleusercontent.com" autocomplete="off" spellcheck="false"></label>
-    <p class="hint">Es crea un sol cop a Google Cloud (mira el fitxer README). Les dades es desen en una carpeta privada del teu Drive que només veu aquesta app. Workouts, rutes, rècords, historial, FTP i pesos se sincronitzen; les preferències de pantalla són de cada dispositiu.</p>
-    <button id="syncOff" onclick="syncDisconnect()">Desconnecta aquest dispositiu</button>
-  </details>
-
   <div class="tabs" role="tablist">
     <button class="tab on" id="tabW" role="tab" aria-selected="true" onclick="setTab('w')">Workouts</button>
     <button class="tab" id="tabR" role="tab" aria-selected="false" onclick="setTab('r')">Rutes</button>
@@ -421,6 +474,34 @@
     <div class="hstats" id="hstats"></div>
     <div class="wlist" id="hlist"></div>
   </div>
+  <details class="fold" id="dataFold">
+    <summary>Dades, còpies i sincronització</summary>
+  <p class="hint" style="margin-top:10px">
+    Quan acabis, desa la sessió com a <b>.fit</b> i importa-la a Garmin Connect: compta com a ciclisme indoor (o virtual, si has rodat una ruta) amb potència, pols i intervals.
+  </p>
+
+  <div class="devices">
+    <div class="dev" id="devSync">
+      <div class="dot"></div>
+      <div class="info"><div class="name">Google Drive</div><div class="sub" id="syncSub">No connectat · el progrés només es desa en aquest dispositiu</div></div>
+      <button id="syncBtn" onclick="syncNow(true)">Connecta</button>
+    </div>
+  </div>
+  <div class="datarow">
+    <button onclick="exportBackup()">Exporta còpia</button>
+    <button onclick="$('bkFile').click()">Importa còpia</button>
+    <button id="installBtn" style="display:none" onclick="installApp()">Instal·la l’app</button>
+  </div>
+  <input type="file" id="bkFile" accept=".json,application/json" hidden>
+  <details class="synccfg" id="syncCfg">
+    <summary>Configuració de la sincronització</summary>
+    <label>Client ID de Google<input id="gcid" placeholder="000000000000-xxxx.apps.googleusercontent.com" autocomplete="off" spellcheck="false"></label>
+    <p class="hint">Es crea un sol cop a Google Cloud (mira el fitxer README). Les dades es desen en una carpeta privada del teu Drive que només veu aquesta app. Workouts, rutes, rècords, historial, FTP i pesos se sincronitzen; les preferències de pantalla són de cada dispositiu.</p>
+    <button id="syncOff" onclick="syncDisconnect()">Desconnecta aquest dispositiu</button>
+  </details>
+
+  </details>
+  <p class="ver">PainCave ERG · versió 4</p>
 </section>
 
 <!-- ============ EDITOR ============ -->
@@ -535,6 +616,7 @@
         <canvas id="roadCv" role="img" aria-label="Vista de la carretera"></canvas>
         <div class="grade" id="gradeBadge">0,0<small> %</small></div>
         <div class="draft" id="draftTag">A RODA</div>
+        <div class="rcount" id="raceCount"></div>
         <div class="rbtns">
           <button class="rbtn" id="btnImm" onclick="toggleImm()" aria-label="Pantalla completa" title="Pantalla completa"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
           <button class="rbtn" onclick="nextCam()" aria-label="Canvia la càmera" title="Canvia la càmera"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="13" height="11" rx="2"/><path d="M16 11l5-3v9l-5-3"/></svg></button>
@@ -610,6 +692,7 @@
       <div class="rt"><b id="sAvgS">—</b><span>km/h mitjana</span></div>
       <div class="rt"><b id="sMaxS">—</b><span>km/h màx</span></div>
     </div>
+    <div class="racebox" id="raceBox" style="display:none"></div>
     <div class="laps" id="lapsBox"></div>
     <div class="acts">
       <button class="go" id="expFit" onclick="exportFit()">Desa el .fit per a Garmin Connect</button>
@@ -620,6 +703,21 @@
       <a class="btn" id="expLink" href="https://connect.garmin.com/modern/import-data" target="_blank" rel="noopener">Obre la importació de Garmin Connect ↗</a>
       <button id="sumSync" style="display:none" onclick="syncNow(true)">Sincronitza amb Google Drive</button>
       <button onclick="closeSummary()">Tanca</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="raceDlg">
+  <div class="card racecard">
+    <h3>CURSA</h3>
+    <div class="rcname" id="rcName"></div>
+    <div class="rcrow"><span>Rivals</span><div class="seg" id="rcN"></div></div>
+    <div class="rcrow"><span>Nivell</span><div class="seg" id="rcL"></div></div>
+    <div class="rcrow" id="rcLapsRow"><span>Voltes</span><div class="lapsel" id="rcLaps"></div></div>
+    <p class="rcinfo" id="rcInfo"></p>
+    <div class="acts">
+      <button class="go" onclick="raceGo()">A la línia de sortida</button>
+      <button onclick="closeRace()">Cancel·la</button>
     </div>
   </div>
 </div>
@@ -1293,6 +1391,7 @@ function tick(){
     }
   }
 
+  if (R.race && !R.race.go) raceTick();
   if (R.route){ routeTick(el, cadOk); return; }
 
   /* objectiu */
@@ -1343,7 +1442,8 @@ function tick(){
   $('avgp').textContent = R.nP ? Math.round(R.sumP / R.nP) : 0;
 }
 
-function togglePause(){
+function togglePause(force){
+  if (R.race && !R.race.go && force !== true) return;      // durant el compte enrere no es pot treure la pausa
   if (R.pausedAt){
     R.pausedAcc += Date.now() - R.pausedAt;
     R.pausedAt = null;
@@ -1423,6 +1523,8 @@ function finishRide(){
   }
   $('sumTitle').textContent = R.demo ? 'DEMOSTRACIÓ ACABADA' : (R.route && R.newPR != null)
     ? (R.prKind === 'lap' ? 'NOVA MILLOR VOLTA' : 'NOU RÈCORD PERSONAL') + (R.newPR > 0 ? ' · −' + fmt(R.newPR) : '') : 'SESSIÓ COMPLETADA';
+  const rr = raceResults();
+  if (rr) $('sumTitle').textContent = (rr.fin ? (rr.pos <= 3 ? 'PODI · ' : 'CURSA ACABADA · ') + ordCa(rr.pos) + ' DE ' + rr.n : 'CURSA ABANDONADA') + (R.demo ? ' · DEMO' : '');
   if (!R.demo) saveActivity();
   $('sumSync').style.display = syncEnabled() && !R.demo ? '' : 'none';
   ['expFit', 'expTwo', 'expLink'].forEach(id => { $(id).style.display = R.demo ? 'none' : ''; });
@@ -1448,6 +1550,7 @@ function renderLaps(){
   box.innerHTML = h + '</tbody></table>';
 }
 function closeSummary(){
+  heroStats();
   $('summary').classList.remove('show');
   show('home');
   if (SY.pendingUi){ SY.pendingUi = false; applyPulled(); }
@@ -2341,6 +2444,7 @@ function draftCandidate(){
 }
 /* es crida a cada tick: busca candidat, i desactiva el rebuf si l'avances o et despenges */
 function draftUpdate(){
+  if (R.race){ R.draftTarget = null; R.draftCand = null; syncDraftUi(); return; }
   const t = R.draftTarget;
   if (t){
     const g = t.dist - R.simDist;
@@ -2367,7 +2471,7 @@ function syncDraftUi(){
   }
   const b2 = $('btnDraft2');
   if (b2){
-    const txt = act ? 'A roda ' + deN(who) + ' · toca per deixar-la' : av ? 'Posa’t a roda ' + deN(who) : 'A roda: cap corredor a prop';
+    const txt = R.race ? 'Cursa · el rebuf és automàtic quan vas a roda' : act ? 'A roda ' + deN(who) + ' · toca per deixar-la' : av ? 'Posa’t a roda ' + deN(who) : 'A roda: cap corredor a prop';
     if (b2.textContent !== txt) b2.textContent = txt;
     b2.className = 'drft' + (act ? ' on' : '') + (av ? ' avail' : '');
     b2.disabled = !act && !av;
@@ -2415,6 +2519,15 @@ function gradeColor(g){
 const routeCache = new Map();
 function prepCached(r){ const k = r.id ? r.id + '|' + r.len : r; let p = routeCache.get(k); if (!p){ p = decorateRoute(prepRoute(r), r); routeCache.set(k, p); } return p; }
 
+function heroGo(t){ setTab(t); $('tabW').parentNode.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+function heroStats(){
+  const el = $('heroStats'); if (!el) return;
+  let L = []; try { L = ACT.list(); } catch(e){}
+  const now = Date.now(), W = L.filter(a => now - a.ts < 7 * 86400000);
+  el.innerHTML = W.length ? 'Aquesta setmana: <b>' + fmt1(W.reduce((s, a) => s + a.sec, 0) / 3600) + ' h</b> · <b>' + fmt1(W.reduce((s, a) => s + (a.km || 0), 0)) + ' km</b> · <b>' +
+      W.reduce((s, a) => s + (a.tss || 0), 0) + ' TSS</b> en ' + W.length + (W.length === 1 ? ' sessió' : ' sessions')
+    : L.length ? 'Fa ' + Math.max(1, Math.round((now - L[0].ts) / 86400000)) + ' dies de la darrera sessió. Avui toca!' : 'Connecta el corró, tria una ruta o un workout i a pedalar.';
+}
 function setTab(t){
   store.set('tab', t);
   [['w', 'paneW', 'tabW'], ['r', 'paneR', 'tabR'], ['h', 'paneH', 'tabH']].forEach(([k, p, b]) => {
@@ -2481,6 +2594,9 @@ function renderRoutes(){
     const go = document.createElement('button'); go.className = 'go'; go.textContent = 'Comença';
     go.onclick = () => startRoute(r);
     row.appendChild(go);
+    const rc = document.createElement('button'); rc.className = 'race'; rc.textContent = 'Cursa';
+    rc.onclick = () => openRace(r);
+    row.appendChild(rc);
     if (!r.builtin){
       const del = document.createElement('button'); del.className = 'sec danger'; del.textContent = 'Esborra';
       del.onclick = () => {
@@ -2525,7 +2641,7 @@ function simDiff(d){
   lastGrade = null;
 }
 
-function startRoute(r){
+function startRoute(r, race){
   const connected = trainerDev && trainerDev.gatt && trainerDev.gatt.connected;
   let demo = false;
   if (!connected){
@@ -2535,7 +2651,8 @@ function startRoute(r){
   const rt = prepCached(r);
   R.active = true; R.manual = false; R.workout = null; R.route = rt; R.demo = demo;
   /* circuit: voltes lliures (fins que pitges «Fi» o «Última volta») o un nombre fix; ruta oberta: d'un cap a l'altre */
-  R.lapsTarget = rt.loop ? lapsFor(r) : 0;
+  R.race = race ? { n: race.n, lvl: race.lvl, go: false, goAt: 0, res: null } : null;
+  R.lapsTarget = rt.loop ? (race ? Math.max(1, race.laps || 1) : lapsFor(r)) : 0;
   R.total = rt.loop ? (R.lapsTarget ? R.lapsTarget * rt.len : Infinity) : rt.len;
   R.lastLap = false; R.lapIdx = 0; R.lapStartSec = 0; R.lapStartDist = 0; R.lapTrack = [0]; R.lapTimes = []; R.prKind = null;
   R.segs = []; R.cum = [];
@@ -2549,11 +2666,13 @@ function startRoute(r){
   R.lastEle = rt.eleAt(0); R.braking = false; R.lapKm = 0; R.demoP = null; R.jersey = null;
   lastSent = null; lastGrade = null;
   RV.pitch = rt.gradeAt(0) / 100 * 0.3; RV.lean = 0;
-  R.bots = makeBots(); R.draft = 0; R.draftTarget = null; R.draftCand = null; R.track = [0]; R.pbuf = []; R.lastKm = 0; R.newPR = null;
+  R.bots = R.race ? makeRaceBots(R.race) : makeBots(); R.draft = 0; R.draftTarget = null; R.draftCand = null; R.track = [0]; R.pbuf = []; R.lastKm = 0; R.newPR = null;
   try { R.ghost = JSON.parse(store.get(ghostKey(rt)) || 'null'); } catch(e){ R.ghost = null; }
+  if (R.race) R.ghost = null;                      // en una cursa no hi ha fantasma: els rivals són de veres
+  $('raceCount').style.display = 'none';
   $('btnSnd').classList.toggle('off', !SND.on); sndInit();
 
-  $('rvName').textContent = rt.name + (rt.loop ? (R.lapsTarget ? ' · ' + R.lapsTarget + (R.lapsTarget === 1 ? ' volta' : ' voltes') : ' · voltes lliures') : '');
+  $('rvName').textContent = (R.race ? 'CURSA · ' : '') + rt.name + (rt.loop ? (R.lapsTarget ? ' · ' + R.lapsTarget + (R.lapsTarget === 1 ? ' volta' : ' voltes') : ' · voltes lliures') : '');
   $('demoTag').style.display = demo ? '' : 'none';
   $('rvDiff').textContent = SET.diff + '%';
   $('lapBtn2').textContent = rt.loop ? 'Última volta' : 'Volta';
@@ -2568,6 +2687,7 @@ function startRoute(r){
   show('sim');
   clearInterval(R.timer);
   R.timer = setInterval(tick, 250);
+  if (R.race) raceCountdown();
   if (R.ghost) toast(rt.loop ? 'La teva millor volta: ' + fmt(R.ghost.t) + ' · la veuràs com a fantasma' : 'El teu rècord en aquesta ruta: ' + fmt(R.ghost.t) + ' · el veuràs com a fantasma');
   requestAnimationFrame(() => {
     if (gfx3d()) g3Start(rt);
@@ -2593,7 +2713,7 @@ function simStep(dt){
   const rt = R.route;
   const P = live.power || 0;
   const tg = R.draftTarget;
-  const k = tg && !tg.done ? draftK(R.simDist, [tg]) : 1;
+  const k = R.race ? draftK(R.simDist, R.bots.filter(b => !b.done)) : tg && !tg.done ? draftK(R.simDist, [tg]) : 1;   // en cursa el rebuf és automàtic
   R.draft = 1 - k;
   let v = physStep(R.simV, P, rt.gradeAt(R.simDist), rt.eleAt(R.simDist), SET.kg + SET.bike, dt, k);
   // sense pedalar, en pla o pujada, s'atura abans (fregaments que el model simple no recull)
@@ -2656,7 +2776,8 @@ function routeTick(el, cadOk){
   }
   draftUpdate();
   const dt_ = $('draftTag');
-  if (R.draftTarget){ dt_.style.display = 'block'; dt_.textContent = 'A RODA ' + deN(R.draftTarget.name).toUpperCase() + (R.draft > 0.04 ? ' · −' + Math.round(R.draft * 100) + ' % AIRE' : ' · ACOSTA’T'); }
+  if (R.race){ dt_.style.display = R.draft > 0.04 ? 'block' : 'none'; dt_.textContent = 'A RODA · −' + Math.round(R.draft * 100) + ' % AIRE'; }
+  else if (R.draftTarget){ dt_.style.display = 'block'; dt_.textContent = 'A RODA ' + deN(R.draftTarget.name).toUpperCase() + (R.draft > 0.04 ? ' · −' + Math.round(R.draft * 100) + ' % AIRE' : ' · ACOSTA’T'); }
   else dt_.style.display = 'none';
   renderRiders(p3);
   if (imm){ drawRouteProf('hudProf'); $('hudZ').style.left = Math.max(0, Math.min(100, p3 / ftp / 1.6 * 100)) + '%'; }
@@ -3479,6 +3600,113 @@ window.addEventListener('resize', () => {
    ================================================================ */
 const BOT_NAMES = ['Tomeu', 'Aina', 'Biel', 'Xisca', 'Pep', 'Margalida', 'Toni', 'Joana'];
 const BOT_COLS  = ['#E8484F', '#F2803B', '#E8C13F', '#2FB383', '#3E9BD6', '#9B6BD6', '#E86BA8', '#EDEFF2'];
+/* ================================================================
+   MODE CURSA · sortida en grup, rivals amb tàctica, rebuf automàtic,
+   classificació en viu i podi final
+   ================================================================ */
+const RACE_NAMES = BOT_NAMES.concat(['Miquel', 'Catalina', 'Jaume', 'Maria', 'Rafel', 'Antònia', 'Guillem', 'Francina', 'Bernat', 'Apol·lònia', 'Llorenç', 'Esperança', 'Andreu', 'Bàrbara', 'Mateu', 'Coloma']);
+const RACE_COLS = ['#E8484F', '#F2803B', '#E8C13F', '#2FB383', '#9B6BD6', '#E86BA8', '#EDEFF2', '#1F7A5C', '#B5462F', '#5360D6', '#8FD14F', '#30343B'];
+const RACE_LVL = [{ n: 'Fàcil', k: 0.88 }, { n: 'Igualat', k: 1.0 }, { n: 'Dur', k: 1.1 }];
+const RC = { r: null, n: 10, lvl: 1, laps: 1 };
+function ordCa(n){ return n + (n === 1 || n === 3 ? 'r' : n === 2 ? 'n' : n === 4 ? 't' : 'è'); }
+function openRace(r){
+  RC.r = r;
+  const rt = prepCached(r);
+  RC.n = parseInt(store.get('raceN') || '10', 10) || 10; RC.lvl = clamp(parseInt(store.get('raceLvl') || '1', 10) || 0, 0, 2);
+  RC.laps = rt.loop ? Math.max(1, parseInt(store.get('raceLaps:' + r.id) || '0', 10) || lapsFor(r) || 1) : 1;
+  $('rcName').textContent = r.name;
+  $('rcLapsRow').style.display = rt.loop ? '' : 'none';
+  const paint = () => {
+    $('rcN').innerHTML = [5, 10, 15, 20].map(n => '<button class="' + (n === RC.n ? 'on' : '') + '" data-n="' + n + '">' + n + '</button>').join('');
+    $('rcL').innerHTML = RACE_LVL.map((l, i) => '<button class="' + (i === RC.lvl ? 'on' : '') + '" data-l="' + i + '">' + l.n + '</button>').join('');
+    $('rcLaps').innerHTML = '<button data-d="-1" aria-label="Menys voltes">−</button><b>' + RC.laps + (RC.laps === 1 ? ' volta' : ' voltes') + '</b><button data-d="1" aria-label="Més voltes">+</button>';
+    $('rcN').querySelectorAll('button').forEach(b => b.onclick = () => { RC.n = +b.dataset.n; paint(); });
+    $('rcL').querySelectorAll('button').forEach(b => b.onclick = () => { RC.lvl = +b.dataset.l; paint(); });
+    $('rcLaps').querySelectorAll('button').forEach(b => b.onclick = () => { RC.laps = clamp(RC.laps + (+b.dataset.d), 1, 50); paint(); });
+    const km = rt.len * RC.laps / 1000, wk = ftp / SET.kg * RACE_LVL[RC.lvl].k;
+    $('rcInfo').innerHTML = '<b style="color:var(--text)">' + fmt1(km) + ' km · +' + Math.round(rt.asc * RC.laps) + ' m</b> · sortida en grup amb ' + RC.n + ' rivals d’uns ' + fmt1(wk) +
+      ' W/kg de llindar (escaladors, rodadors i esprintadors). Anar a roda estalvia fins a un 32 % d’aire; hi haurà atacs i esprint final.';
+  };
+  paint();
+  $('raceDlg').classList.add('show');
+}
+function closeRace(){ $('raceDlg').classList.remove('show'); }
+function raceGo(){
+  store.set('raceN', String(RC.n)); store.set('raceLvl', String(RC.lvl)); if (RC.r.id) store.set('raceLaps:' + RC.r.id, String(RC.laps));
+  closeRace();
+  startRoute(RC.r, { n: RC.n, lvl: RC.lvl, laps: RC.laps });
+}
+function makeRaceBots(race){
+  const n = race.n, me = Math.max(1.6, ftp / SET.kg) * RACE_LVL[race.lvl].k;
+  // intensitat de cursa segons la durada prevista (com més llarga, més conservadors)
+  const T = (isFinite(R.total) ? R.total : R.route.len) / 8.5;
+  race.IF = clamp(1.0 - 0.05 * Math.log2(Math.max(300, T) / 900), 0.8, 1.03);
+  const TYPES = [{ kg: 61, up: 1.17, spr: 1.5 }, { kg: 72, up: 1.1, spr: 1.75 }, { kg: 79, up: 1.05, spr: 2.1 }];
+  const LANES = [-2.0, -0.7, 0.4, 2.2];
+  const order = Array.from({ length: n }, (_, i) => i).sort((a, b) => hash(a * 7.3 + n) - hash(b * 7.3 + n));   // ordre a la graella
+  return order.map((i, slot) => {
+    const ty = TYPES[i % 3], f = 0.85 + 0.29 * (n > 1 ? i / (n - 1) : 0.5);
+    const row = Math.floor(slot / 4), col = slot % 4;
+    return { name: RACE_NAMES[i % RACE_NAMES.length], col: RACE_COLS[i % RACE_COLS.length], wkg: Math.round(me * f * 10) / 10, kg: ty.kg + (i * 5) % 7, up: ty.up, spr: ty.spr,
+      dist: 1.2 + row * 2.1 + hash(i * 3.1) * 0.5, v: 0, lane: LANES[col], laneT: LANES[col] + (hash(i * 5.7) - 0.5) * 0.5, crank: i * 0.8, ph: i * 1.7,
+      done: false, race: true, side: 0, atkT: 90 + 500 * hash(i * 9.1), atkEnd: 0 };
+  });
+}
+/* potència d'un rival: sortida forta, ritme de cursa, pujades segons el tipus, atacs, anar a roda i esprint final */
+function raceBotPower(b, g, t, all){
+  const toGo = R.total - b.dist;
+  let k = R.race.IF * (g > 3 ? b.up : g < -3 ? 0.35 : 1) * (1 + 0.05 * Math.sin(t / 41 + b.ph));
+  if (t < 45) k *= 1 + 0.35 * (1 - t / 45);
+  if (t > b.atkT){ b.atkEnd = t + 18 + 22 * hash(b.ph + b.atkT); b.atkT = t + 200 + 420 * hash(b.ph * 3 + b.atkT); }
+  if (t < b.atkEnd) k *= 1.32;
+  b.side = 0;
+  if (toGo < 350) return b.wkg * b.kg * Math.max(k, b.spr * (toGo < 200 ? 1 : 0.8));
+  let ah = null, ga = 1e9;
+  for (let i = 0; i < all.length; i++){ const o = all[i]; if (o === b) continue; const d = o.dist - b.dist; if (d > 0 && d < ga){ ga = d; ah = o; } }
+  if (ah && ga < 3.2){
+    const av = ah.v != null ? ah.v : R.simV, al = ah.lane != null ? ah.lane : RIDER_X;
+    if (t >= b.atkEnd && b.v > av - 0.2 && b.v < av + 0.8) k *= 0.84;                   // s'hi queda a roda i estalvia
+    else if (Math.abs(al - b.lane) < 0.8) b.side = b.laneT <= al ? -0.9 : 0.9;          // és més ràpid: s'obre i avança
+  }
+  const gm = b.dist - R.simDist; if (gm > 150) k *= 0.965; else if (gm < -150) k *= 1.035;   // el grup no es trenca del tot
+  return b.wkg * b.kg * k;
+}
+function raceCountdown(){
+  R.pausedAt = Date.now(); R.race.goAt = Date.now() + 9000; R.race.last = null;
+  raceTick();
+}
+function raceTick(){
+  const rc = R.race, el = $('raceCount'), left = Math.ceil((rc.goAt - Date.now()) / 1000);
+  if (left > 0){
+    el.style.display = 'flex'; el.classList.remove('go');
+    el.innerHTML = left > 3 ? '<span>A LA LÍNIA DE SORTIDA</span><b>' + left + '</b><span>' + rc.n + ' RIVALS · ' + RACE_LVL[rc.lvl].n.toUpperCase() + '</span>' : '<b>' + left + '</b>';
+    if (left <= 3 && rc.last !== left){ rc.last = left; sndDing(520); if (navigator.vibrate) navigator.vibrate(60); }
+    return;
+  }
+  rc.go = true;
+  R.startTs = Date.now(); R.pausedAcc = 0; R.pausedAt = Date.now(); R.startWall = new Date();
+  togglePause(true);
+  el.classList.add('go'); el.innerHTML = '<b>JA!</b>'; sndDing(1040); if (navigator.vibrate) navigator.vibrate(200);
+  setTimeout(() => { el.style.display = 'none'; }, 1300);
+}
+/* classificació final: els que ja han arribat, tu, i la resta amb el temps previst */
+function raceResults(){
+  const box = $('raceBox'); box.style.display = 'none'; box.innerHTML = '';
+  if (!R.race || !R.race.go || !R.route) return null;
+  const el = R.finalSec, fin = R.simDist >= R.total - 1;
+  const rows = R.bots.map(b => ({ name: b.name, col: b.col, t: b.done ? b.finT : el + (R.total - b.dist) / Math.max(3, b.v), done: b.done, d: b.dist }));
+  rows.push({ name: 'Tu', me: true, col: '#3E9BD6', t: fin ? el : Infinity, done: fin, d: R.simDist });
+  rows.sort((a, b) => (fin || (a.done && b.done)) ? a.t - b.t : a.done !== b.done ? (a.done ? -1 : 1) : b.d - a.d);
+  const pos = rows.findIndex(x => x.me) + 1, t0 = rows[0].t;
+  const tm = (x, i) => x.me && !fin ? 'abandó' : !isFinite(x.t) ? '' : i === 0 ? fmt(x.t) : '+' + fmt(Math.max(0, x.t - t0));
+  box.innerHTML = '<div class="pod">' + rows.slice(0, 3).map((x, i) => '<div class="' + (x.me ? 'me' : '') + '"><b>' + ordCa(i + 1) + '</b>' + esc(x.name) + '</div>').join('') + '</div>' +
+    '<div class="rl">' + rows.map((x, i) => '<div class="' + (x.me ? 'me' : '') + '"><span class="p">' + (i + 1) + '</span><i style="background:' + x.col + '"></i><span class="n">' + esc(x.name) +
+      '</span><span class="t">' + tm(x, i) + '</span></div>').join('') + '</div>';
+  box.style.display = '';
+  const me = box.querySelector('.rl .me'); if (me) setTimeout(() => me.scrollIntoView({ block: 'nearest' }), 50);
+  return (R.race.res = { pos, n: rows.length, fin });
+}
+
 function makeBots(){
   // nivells al voltant del teu ritme de tempo, perquè sempre hi hagi algú amb qui rodar
   const base = Math.max(1.5, ftp * 0.72 / SET.kg);
@@ -3503,11 +3731,11 @@ function botsStep(dt){
   R.bots.forEach(b => {
     if (b.done) return;
     const d = Math.max(0, b.dist), g = rt.gradeAt(d);
-    const P = b.wkg * b.kg * (g > 3 ? 1.1 : g < -3 ? 0.35 : 1) * (1 + 0.06 * Math.sin(t / 37 + b.ph));
+    const P = b.race ? raceBotPower(b, g, t, all) : b.wkg * b.kg * (g > 3 ? 1.1 : g < -3 ? 0.35 : 1) * (1 + 0.06 * Math.sin(t / 37 + b.ph));
     let v = physStep(b.v, P, g, rt.eleAt(d), b.kg + 8, dt, draftK(b.dist, all));
     const lim = rt.speedLimit(d); if (v > lim) v = Math.max(lim, Math.min(v, b.v - 4 * dt));
     b.dist += (b.v + v) / 2 * dt; b.v = v;
-    if (b.dist >= R.total){ b.dist = R.total; b.done = true; }
+    if (b.dist >= R.total){ b.dist = R.total; b.done = true; b.finT = t; }
     // s'aparta si passa just pel teu costat
     const gapMe = b.dist - R.simDist;
     let tgt;
@@ -3515,6 +3743,7 @@ function botsStep(dt){
     else {
       const near = Math.abs(gapMe) < 4 && Math.abs(b.laneT - RIDER_X) < 0.8;
       tgt = near ? (b.laneT < RIDER_X ? RIDER_X - 1.1 : RIDER_X + 1.1) : b.laneT;
+      if (b.race && !near && b.side) tgt = clamp(b.laneT + b.side, -2.5, 2.5);     // s'obre per avançar un altre corredor
     }
     b.lane += (tgt - b.lane) * Math.min(1, dt * 1.5);
   });
@@ -3560,6 +3789,7 @@ function lineLabel(k){
 /* circuit: «Última volta» fa que la sessió acabi en tornar a passar per meta (es pot desfer) */
 function toggleLastLap(){
   const rt = R.route; if (!R.active || !rt || !rt.loop) return;
+  if (R.race){ toast('En una cursa les voltes són fixes'); return; }
   if (!R.lastLap){
     R.lastLap = true; R.totalBefore = R.total; R.total = (R.lapIdx + 1) * rt.len;
     toast('Última volta: acabaràs en passar per meta');
@@ -3583,7 +3813,7 @@ function routeFinish(){
   }
 }
 function renderRiders(p3){
-  const list = R.bots.filter(b => !b.done).map(b => ({ name: b.name, col: b.col, info: fmt1(b.wkg) + ' W/kg', dist: b.dist }));
+  const list = R.bots.filter(b => R.race || !b.done).map(b => ({ name: b.name, col: b.col, info: fmt1(b.wkg) + ' W/kg', dist: b.done ? R.total + 1e6 - (b.finT || 0) : b.dist, fin: b.done }));
   const gd = ghostDist();
   if (gd != null) list.push({ name: 'Rècord', col: 'rgba(232,238,242,.55)', info: fmt(R.ghost.t), dist: gd, ghost: true });
   list.push({ name: 'Tu', col: R.jersey || '#3E9BD6', info: fmt1(p3 / SET.kg) + ' W/kg', dist: R.simDist, me: true });
@@ -3593,7 +3823,7 @@ function renderRiders(p3){
   const html = '<div class="rh">Posició ' + (i + 1) + ' de ' + list.filter(x => !x.ghost).length + '</div>' +
     list.slice(Math.max(0, i - 2), i + 3).map(x => {
       const gt = Math.round(Math.abs(x.dist - R.simDist) / v);
-      const gs = x.me ? '' : (gt === 0 ? '' : x.dist >= R.simDist ? '+' : '−') + (gt < 60 ? gt + ' s' : Math.floor(gt / 60) + ':' + String(gt % 60).padStart(2, '0'));
+      const gs = x.me ? '' : x.fin ? 'meta' : (gt === 0 ? '' : x.dist >= R.simDist ? '+' : '−') + (gt < 60 ? gt + ' s' : Math.floor(gt / 60) + ':' + String(gt % 60).padStart(2, '0'));
       return '<div class="rr' + (x.me ? ' me' : '') + (x.ghost ? ' gh' : '') + '"><i style="background:' + x.col + '"></i><span class="n">' +
         esc(x.name) + '</span><span class="w">' + x.info + '</span><span class="g">' + gs + '</span></div>';
     }).join('');
@@ -3782,6 +4012,180 @@ const M4 = (x, y, z, rx, ry, rz, sx, sy, sz) => new THREE.Matrix4().compose(new 
   new THREE.Quaternion().setFromEuler(new THREE.Euler(rx || 0, ry || 0, rz || 0)), new THREE.Vector3(sx == null ? 1 : sx, sy == null ? (sx == null ? 1 : sx) : sy, sz == null ? (sx == null ? 1 : sx) : sz));
 
 /* ================================================================
+   RECURSOS DE BLENDER (carpeta assets/, generats amb blender/build.py)
+   Cel amb núvols, textures, bicicleta, ciclista, vegetació i roques.
+   Només es poden carregar quan l'app s'obre des de la web o instal·lada (http/https);
+   si s'obre el fitxer directament, o falla la càrrega, es fan servir els gràfics senzills de sempre.
+   ================================================================ */
+const G3A = { ready: false, failed: false, geo: {}, img: {}, meta: null, pend: null };
+function g3DecodeMesh(buf, base, m){
+  const g = new THREE.BufferGeometry(), nv = m.v, b = m.b, a = m.a;
+  const P = new Int16Array(buf, base + a.p, nv * 3), pos = new Float32Array(nv * 3);
+  for (let i = 0; i < nv * 3; i++){ const k = i % 3; pos[i] = b[k] + (P[i] + 32768) / 65535 * (b[k + 3] - b[k]); }
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  g.setAttribute('normal', new THREE.BufferAttribute(new Int8Array(buf, base + a.n, nv * 3), 3, true));
+  if (a.c != null){ // colors en sRGB (8 bits) → lineals
+    const C = new Uint8Array(buf, base + a.c, nv * 3), col = new Float32Array(nv * 3), L = new Float32Array(256);
+    for (let i = 0; i < 256; i++){ const v = i / 255; L[i] = v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }
+    for (let i = 0; i < nv * 3; i++) col[i] = L[C[i]];
+    g.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  }
+  if (a.u != null){
+    const U = new Uint16Array(buf, base + a.u, nv * 2), uv = new Float32Array(nv * 2), u = m.ub;
+    for (let i = 0; i < nv * 2; i++){ const k = i & 1; uv[i] = u[k] + U[i] / 65535 * (u[k + 2] - u[k]); }
+    g.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
+  }
+  if (a.s != null){ // pell: 4 ossos per vèrtex (índex i pes)
+    g.setAttribute('skinIndex', new THREE.BufferAttribute(new Uint8Array(buf, base + a.s, nv * 4), 4));
+    g.setAttribute('skinWeight', new THREE.BufferAttribute(new Uint8Array(buf, base + a.w, nv * 4), 4, true));
+  }
+  g.setIndex(new THREE.BufferAttribute(m.it === 2 ? new Uint16Array(buf, base + a.i, m.i) : new Uint32Array(buf, base + a.i, m.i), 1));
+  m.g.forEach(([s, c, mi]) => g.addGroup(s, c, mi));
+  g.computeBoundingSphere();
+  if (m.x) g.userData = m.x;
+  return g;
+}
+async function g3LoadAssets(){
+  try {
+    if (!/^https?:$/.test(location.protocol) || !window.DecompressionStream) throw new Error('sense recursos');
+    const meta = await (await fetch('assets/g3.json')).json();
+    const res = await fetch('assets/g3.bin?v=' + meta.v); if (!res.ok) throw new Error('g3.bin ' + res.status);
+    const buf = await new Response(res.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+    const hl = new DataView(buf).getUint32(0, true);
+    const head = JSON.parse(new TextDecoder().decode(new Uint8Array(buf, 4, hl)));
+    const base = (4 + hl + 3) & ~3;
+    head.m.forEach(m => { G3A.geo[m.n] = g3DecodeMesh(buf, base, m); });
+    await Promise.all(meta.tex.map(k => new Promise((ok, ko) => {
+      const im = new Image(); im.onload = () => { G3A.img[k] = im; ok(); }; im.onerror = () => ko(new Error('textura ' + k)); im.src = 'assets/' + k + '.webp?v=' + meta.v;
+    })));
+    G3A.meta = meta; G3A.ready = true;
+  } catch(e){ console.info('Gràfics senzills (recursos 3D no disponibles):', e.message); G3A.failed = true; }
+  const p = G3A.pend; G3A.pend = null;
+  if (p && R.active && R.route === p && gfx3d()){ g3Start(p); rvResize(); }
+}
+/* textures dels recursos */
+function g3TexturesA(){
+  const T = G3.tex, an = Math.min(8, G3.renderer.capabilities.getMaxAnisotropy());
+  const mk = (k, srgb, rep) => {
+    const t = new THREE.Texture(G3A.img[k]); t.colorSpace = srgb ? THREE.SRGBColorSpace : THREE.NoColorSpace;
+    t.wrapS = t.wrapT = rep ? THREE.RepeatWrapping : THREE.ClampToEdgeWrapping; t.anisotropy = an; t.needsUpdate = true; return t;
+  };
+  ['road', 'dirt', 'stone'].forEach(k => {
+    if (T[k]) T[k].dispose(); if (T[k + 'N']) T[k + 'N'].dispose();
+    T[k] = mk(k, true, true); T[k + 'N'] = mk(k + 'N', false, true);
+  });
+  T.groundN.dispose(); T.groundN = mk('groundN', false, true);
+  T.tgrass = mk('tgrass', true, true); T.tsoil = mk('tsoil', true, true); T.trock = mk('trock', true, true);
+  T.leaves = mk('leaves', true, false); T.imp = mk('impostors', true, false);
+  T.sky = mk('sky', true, false); T.sky.wrapS = THREE.RepeatWrapping; T.sky.generateMipmaps = false; T.sky.minFilter = THREE.LinearFilter; T.sky.anisotropy = 1;
+}
+/* cel: panorama renderitzat (de l'horitzó al zenit); el sol de la imatge és a u = 0 i es gira cap al sol de la ruta */
+function g3SkyA(){
+  const m = G3A.meta.sky, hz = new THREE.Color().setRGB(m.hz[0], m.hz[1], m.hz[2], THREE.SRGBColorSpace);
+  G3.HAZE.copy(hz); G3.scene.fog.color.copy(hz);
+  G3.skyMat = new THREE.ShaderMaterial({ side: THREE.BackSide, depthWrite: false, fog: false,
+    uniforms: { map: { value: G3.tex.sky }, sunAz: { value: 0 }, hz: { value: new THREE.Vector3(m.hz[0], m.hz[1], m.hz[2]) }, lat0: { value: m.lat0 * Math.PI / 180 } },
+    vertexShader: 'varying vec3 vD; void main(){ vD = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
+    fragmentShader: `uniform sampler2D map; uniform float sunAz, lat0; uniform vec3 hz; varying vec3 vD;
+      void main(){ vec3 d = normalize(vD); float u = (atan(d.z, d.x) - sunAz) / 6.2831853; float lat = asin(clamp(d.y, -1.0, 1.0));
+        float v = (lat - lat0) / (1.5707963 - lat0);
+        vec3 c = texture2D(map, vec2(u, clamp(v, 0.004, 0.998))).rgb;
+        c = mix(hz, c, smoothstep(-0.01, 0.035, v));
+        gl_FragColor = vec4(c, 1.0); }` });
+  G3.sky.material = G3.skyMat;
+  // llum ambiental del color mitjà del cel
+  G3.hemi.color.setRGB(m.amb[0], m.amb[1], m.amb[2]).multiplyScalar(1.9); G3.hemi.groundColor.set(0x6f6248); G3.hemi.intensity = 1.0;
+  G3.sun.color.set(0xfff3df); G3.sun.intensity = 3.1;
+  G3.sun.shadow.mapSize.set(2048, 2048);
+  G3.mat.sea.uniforms.skyHz.value.copy(hz);
+  G3.mat.sea.uniforms.skyTop.value.setRGB(m.top[0], m.top[1], m.top[2], THREE.SRGBColorSpace);
+}
+/* reflexos: el mateix cel com a mapa d'entorn (es refà a cada ruta, perquè el sol canvia de lloc) */
+function g3EnvA(){
+  const W = 512, H = 256, cv = G3.envCv || (G3.envCv = document.createElement('canvas')); cv.width = W; cv.height = H;
+  const c = cv.getContext('2d'), m = G3A.meta.sky, im = G3A.img.sky;
+  const css = a => 'rgb(' + a.map(v => Math.round(v * 255)).join(',') + ')';
+  c.fillStyle = css(m.hz); c.fillRect(0, 0, W, H);
+  // equirectangular de three: u = atan2(z, x) / 2π + 0,5
+  const az = Math.atan2(G3.sunDir.z, G3.sunDir.x), x0 = ((az / (2 * Math.PI) + 0.5) % 1 + 1) % 1 * W, hh = H / 2 * (1 + (-m.lat0) / 90);
+  c.drawImage(im, x0, 0, W, hh); c.drawImage(im, x0 - W, 0, W, hh);
+  const g = c.createLinearGradient(0, H / 2, 0, H); g.addColorStop(0, css(m.hz)); g.addColorStop(0.12, '#6c6a55'); g.addColorStop(1, '#3d3a2c');
+  c.fillStyle = g; c.fillRect(0, H / 2 + 2, W, H / 2);
+  const t = new THREE.CanvasTexture(cv); t.mapping = THREE.EquirectangularReflectionMapping; t.colorSpace = THREE.SRGBColorSpace;
+  const pm = G3.pmrem || (G3.pmrem = new THREE.PMREMGenerator(G3.renderer));
+  const rtg = pm.fromEquirectangular(t); t.dispose();
+  if (G3.envRT) G3.envRT.dispose();
+  G3.envRT = rtg; G3.scene.environment = rtg.texture;
+}
+/* terreny: herba seca, terra i roca (textures de 6 m repetides a dues escales) tenyides pel color de cada zona */
+function g3TerrainMatA(){
+  const T = G3.tex, mt = new THREE.MeshLambertMaterial({ vertexColors: true });
+  mt.onBeforeCompile = sh => {
+    Object.assign(sh.uniforms, { tG: { value: T.tgrass }, tS: { value: T.tsoil }, tR: { value: T.trock }, tN: { value: T.groundN },
+      mG: { value: new THREE.Vector3(...G3A.meta.terrain.tgrass) }, mS: { value: new THREE.Vector3(...G3A.meta.terrain.tsoil) }, mR: { value: new THREE.Vector3(...G3A.meta.terrain.trock) } });
+    sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute vec2 splat; varying vec2 vSplat; varying vec3 vWP; varying vec3 vWN;')
+      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvSplat = splat; vWP = position; vWN = normal;');
+    sh.fragmentShader = sh.fragmentShader.replace('#include <common>', `#include <common>
+      uniform sampler2D tG, tS, tR, tN; varying vec2 vSplat; varying vec3 vWP; varying vec3 vWN;
+      uniform vec3 mG, mS, mR;
+      vec3 g3Tex(sampler2D t, vec2 p1, vec2 p2, float k, vec3 mean){ vec3 far = texture2D(t, p2).rgb / mean; return 0.8 * mix(vec3(1.0), far, 0.75) * mix(vec3(1.0), texture2D(t, p1).rgb / mean, k * 0.7); }`)
+      .replace('#include <color_fragment>', `#include <color_fragment>
+      vec2 p1 = vWP.xz / 6.0, p2 = (mat2(0.8, 0.6, -0.6, 0.8) * vWP.xz) / 43.0;
+      float nearK = 1.0 - smoothstep(30.0, 140.0, length(vWP - cameraPosition));
+      float wR = clamp(vSplat.y * 1.25, 0.0, 1.0), wS = clamp(vSplat.x, 0.0, 1.0) * (1.0 - wR), wG = max(0.0, 1.0 - wR - wS);
+      diffuseColor.rgb *= wG * g3Tex(tG, p1, p2, nearK, mG) + wS * g3Tex(tS, p1, p2, nearK, mS) + wR * g3Tex(tR, p1, p2, nearK, mR);`)
+      .replace('#include <normal_fragment_maps>', `
+      vec3 nT = texture2D(tN, vWP.xz / 7.0).xyz * 2.0 - 1.0;
+      vec3 wN = normalize(normalize(vWN) + vec3(nT.x, 0.0, nT.y) * (0.25 + 0.5 * (1.0 - smoothstep(30.0, 140.0, length(vWP - cameraPosition)))));
+      normal = normalize((viewMatrix * vec4(wN, 0.0)).xyz);`);
+  };
+  return mt;
+}
+function g3MaterialsA(){
+  const T = G3.tex, M = G3.mat;
+  M.terrain = g3TerrainMatA();
+  M.road.map = T.road; M.road.normalMap = T.roadN; M.road.normalScale.set(0.6, 0.6); M.road.roughness = 0.88; M.road.envMapIntensity = 0.35;
+  M.dirt.map = T.dirt; M.dirt.normalMap = T.dirtN; M.stone.map = T.stone; M.stone.normalMap = T.stoneN;
+  M.metal.envMapIntensity = 0.8;
+  M.bark = new THREE.MeshLambertMaterial({ vertexColors: true });
+  M.leaf = new THREE.MeshLambertMaterial({ map: T.leaves, vertexColors: true, alphaTest: 0.42, side: THREE.DoubleSide, color: new THREE.Color(1.35, 1.35, 1.3) });
+  M.imp = new THREE.MeshLambertMaterial({ map: T.imp, alphaTest: 0.42, side: THREE.DoubleSide });
+}
+/* vegetació: models (2 nivells) + silueta renderitzada (lluny) */
+function g3VegGeosA(){
+  const A = G3A.geo, M = G3.mat, IMP = G3A.meta.imp, NI = Object.keys(IMP).length;
+  const imp = sp => { // dues siluetes creuades amb la imatge de l'arbre renderitzat de costat
+    const m = IMP[sp], a = new THREE.PlaneGeometry(m.w, m.h).translate(0, m.h / 2 - 0.15, 0);
+    const uv = a.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setX(i, (m.i + uv.getX(i)) / NI);
+    return mergeGeo([{ g: a, m: new THREE.Matrix4() }, { g: a.clone().rotateY(Math.PI / 2), m: new THREE.Matrix4() }]);
+  };
+  const G = {
+    pine: [A.pine0, A.pine1, imp('pine')], shrub: [A.shrub0, A.shrub1, null], rock: [A.rock0, A.rock1, null],
+    olive: [A.olive0, A.olive1, imp('olive')], carob: [A.carob0, A.carob1, imp('carob')], cypress: [A.cypress0, A.cypress1, imp('cypress')],
+    palm: [A.palm0, A.palm1, null], grass: [A.grass0, null, null]
+  };
+  G3.geo.veg = G;
+  G3.SPECIES = ['pine', 'shrub', 'rock', 'olive', 'carob', 'cypress', 'palm', 'grass'];
+  const CAP = [900, 5000, 14000];
+  G3.veg = {};
+  G3.SPECIES.forEach(sp => {
+    G3.veg[sp] = G[sp].map((g, lod) => {
+      if (!g) return null;
+      const mat = lod === 2 ? M.imp : sp === 'grass' ? M.leaf : sp === 'rock' ? M.bark : [M.bark, M.leaf];
+      const im = new THREE.InstancedMesh(g, mat, sp === 'grass' ? G3_GRASS_MAX : CAP[lod]);
+      im.count = 0; im.frustumCulled = false;
+      im.castShadow = lod === 0 && sp !== 'grass'; im.receiveShadow = lod < 2;
+      im.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+      im.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(im.instanceMatrix.count * 3), 3);
+      im.instanceColor.setUsage(THREE.DynamicDrawUsage);
+      G3.scene.add(im);
+      return im;
+    });
+  });
+}
+const G3_GRASS_MAX = 6000;
+
+/* ================================================================
    INICIALITZACIÓ (una sola vegada): renderer, llums, textures, materials
    ================================================================ */
 function g3Init(){
@@ -3814,7 +4218,9 @@ function g3Init(){
     const S = sun.shadow.camera; S.left = -28; S.right = 28; S.top = 28; S.bottom = -28; S.near = 1; S.far = 220;
     sun.shadow.bias = -0.0005; sun.shadow.normalBias = 0.03; sun.shadow.radius = 3;
     sc.add(sun); sc.add(sun.target); G3.sun = sun;
-    g3Textures(); g3Materials(); g3VegGeos();
+    g3Textures(); if (G3A.ready) g3TexturesA();
+    g3Materials(); if (G3A.ready){ g3MaterialsA(); g3SkyA(); }
+    g3VegGeos();
     G3.tmp = { a: {}, b: {}, c: {}, d: {}, v: new THREE.Vector3(), info: {} };
     G3.camPos = new THREE.Vector3(); G3.camLook = new THREE.Vector3(); G3.camInit = false;
     G3.ok = true;
@@ -3918,6 +4324,7 @@ function g3Materials(){
    GEOMETRIES DE VEGETACIÓ (3 nivells de detall per espècie)
    ================================================================ */
 function g3VegGeos(){
+  if (G3A.ready) return g3VegGeosA();
   const cyl = (r1, r2, h, s) => new THREE.CylinderGeometry(r1, r2, h, s || 6, 1).translate(0, h / 2, 0);
   const ico = (d) => new THREE.IcosahedronGeometry(1, d);
   const TR = [0.36, 0.28, 0.21];
@@ -4013,14 +4420,16 @@ function g3VegGeos(){
    PER RUTA: spline de la carretera, índex espacial, trams de carretera
    ================================================================ */
 function g3Start(rt){
+  if (!G3A.ready && !G3A.failed){ G3A.pend = rt; return; }   // els models encara es carreguen
   if (!g3Init()) return;
   if (G3.rt === rt){ g3MakeRiders(); g3Resize(); g3LapBanner(true); return; }
   g3Clear();
   G3.rt = rt;
   // sol baix sobre la mar (reflex sobre l'aigua); si no n'hi ha, a ponent
   const az = rt.seaAz != null ? rt.seaAz : 4.2;
-  G3.sunDir.set(Math.sin(az), 0.36, -Math.cos(az)).normalize();
+  G3.sunDir.set(Math.sin(az), G3A.ready ? Math.tan(G3A.meta.sky.el * Math.PI / 180) : 0.36, -Math.cos(az)).normalize();
   G3.mat.sea.uniforms.sunDir.value.copy(G3.sunDir);
+  if (G3A.ready){ G3.skyMat.uniforms.sunAz.value = Math.atan2(G3.sunDir.z, G3.sunDir.x); g3EnvA(); }
   g3Spline(rt);
   g3Overlaps(rt);
   g3TrackIndex(rt);
@@ -4547,6 +4956,7 @@ function g3NewChunkMesh(){
   g.setAttribute('normal', new THREE.BufferAttribute(new Float32Array(N * N * 3), 3));
   g.setAttribute('color', new THREE.BufferAttribute(new Float32Array(N * N * 3), 3));
   g.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(N * N * 2), 2));
+  g.setAttribute('splat', new THREE.BufferAttribute(new Float32Array(N * N * 2), 2));   // terra nua i roca (per a les textures)
   if (!G3.geo.gridIdx){ const I = []; for (let j = 0; j < CRES; j++) for (let i = 0; i < CRES; i++){ const a = j * N + i; I.push(a, a + N, a + 1, a + 1, a + N, a + N + 1); } G3.geo.gridIdx = I; }
   g.setIndex(G3.geo.gridIdx);
   const m = new THREE.Mesh(g, G3.mat.terrain); m.receiveShadow = true; m.matrixAutoUpdate = false;
@@ -4564,7 +4974,7 @@ function g3BuildChunk(ix, iz){
     const k = j * NB + i; HB[k] = g3Height(x0 + (i - 1) * S, z0 + (j - 1) * S, info);
     IB.d[k] = info.dist; IB.b[k] = BIO[info.bio] || 0; IB.s[k] = info.sea ? 1 : 0;
   }
-  const g = mesh.geometry, P = g.attributes.position.array, Nn = g.attributes.normal.array, C = g.attributes.color.array, U = g.attributes.uv.array;
+  const g = mesh.geometry, P = g.attributes.position.array, Nn = g.attributes.normal.array, C = g.attributes.color.array, U = g.attributes.uv.array, SPL = g.attributes.splat.array;
   for (let j = 0; j < N; j++) for (let i = 0; i < N; i++){
     const k = j * N + i, kb = (j + 1) * NB + (i + 1), x = x0 + i * S, z = z0 + j * S, h = HB[kb];
     P[k*3] = x; P[k*3+1] = h; P[k*3+2] = z; U[k*2] = x / 14; U[k*2+1] = z / 14;
@@ -4581,9 +4991,10 @@ function g3BuildChunk(ix, iz){
     let r = c[0], gg = c[1], b = c[2];
     const rk = clamp((slope - 0.6) * 1.6, 0, 1) * (sea ? 1 : 0.85) * (0.75 + 0.25 * nz1);   // roca calcària als pendents forts
     r += (TCOL.rock[0] - r) * rk; gg += (TCOL.rock[1] - gg) * rk; b += (TCOL.rock[2] - b) * rk;
+    SPL[k*2] = c === TCOL.soil || c === TCOL.sand || c === TCOL.verge ? 1 : c === TCOL.cliff ? 0.3 : 0; SPL[k*2+1] = c === TCOL.cliff ? Math.max(rk, 0.7) : rk;
     const v = 0.88 + 0.22 * nz2; C[k*3] = r * v; C[k*3+1] = gg * v; C[k*3+2] = b * v;
   }
-  g.attributes.position.needsUpdate = g.attributes.normal.needsUpdate = g.attributes.color.needsUpdate = g.attributes.uv.needsUpdate = true;
+  g.attributes.position.needsUpdate = g.attributes.normal.needsUpdate = g.attributes.color.needsUpdate = g.attributes.uv.needsUpdate = g.attributes.splat.needsUpdate = true;
   g.computeBoundingSphere();
   mesh.visible = true; mesh.updateMatrix();
   const ch = { ix, iz, mesh, cx: x0 + CH / 2, cz: z0 + CH / 2, sphere: g.boundingSphere, props: null };
@@ -4738,7 +5149,81 @@ function g3MakeRiders(){
   const list = [{ me: true, col: '#3E9BD6' }].concat((R.bots || []).map(b => ({ bot: b, col: b.col }))).concat([{ ghost: true, col: '#E8EEF2' }]);
   list.forEach(o => { const r = g3Rider(o); G3.scene.add(r.root); G3.riders.push(r); });
 }
+/* ---------- ciclista modelat a Blender: bici detallada + cos d'una sola peça amb pell (ossos) ---------- */
+const BIKE_RA = -0.405, BIKE_FA = 0.585;          // eixos de les rodes (distància entre eixos de 99 cm)
+const HOOD = [0.57, 0.875, 0.205];                // mans damunt les manetes
+function g3RiderA(o){
+  const ghost = !!o.ghost, A = G3A.geo, hi = !!o.me, sfx = hi ? '' : '1';
+  const SH = G3.rm || (G3.rm = {});                // materials compartits entre ciclistes
+  const mk = (key, p) => { if (ghost){ const m = new THREE.MeshStandardMaterial(p); m.transparent = true; m.opacity = 0.32; m.depthWrite = false; return m; }
+    return key ? (SH[key] || (SH[key] = new THREE.MeshStandardMaterial(p))) : new THREE.MeshStandardMaterial(p); };
+  const M = {
+    jersey: mk(null, { vertexColors: true, color: o.col, roughness: 0.62 }),
+    body: mk('body', { vertexColors: true, roughness: 0.58 }),
+    gloss: mk('gloss', { vertexColors: true, roughness: 0.1, metalness: 0.6 }),
+    paint: mk('paint', { vertexColors: true, roughness: 0.3, metalness: 0.25 })
+  };
+  const root = new THREE.Group(), lean = new THREE.Group(); root.add(lean);
+  const bike = new THREE.Group(); lean.add(bike);
+  const cast = [];
+  const mesh = (g, mats, parent) => { const m = new THREE.Mesh(g, mats); m.castShadow = !ghost; cast.push(m); (parent || lean).add(m); return m; };
+  mesh(A['bike' + sfx], M.paint, bike);
+  const wR = mesh(A['wheel' + sfx], M.paint, bike), wF = mesh(A['wheel' + sfx], M.paint, bike);
+  wR.position.set(BIKE_RA, 0.35, 0); wF.position.set(BIKE_FA, 0.35, 0);
+  const crank = new THREE.Group(); crank.position.set(0, 0.3, 0); bike.add(crank);
+  mesh(A['crank' + sfx], M.paint, crank);
+  const RM = [M.body, M.jersey, M.gloss];
+  // cos amb pell: un os per segment (sense jerarquia); en repòs cada os és al seu origen
+  const bg = A['r_body' + sfx], rest = bg.userData.bones;
+  const bones = rest.map(() => new THREE.Bone()), inv = rest.map(b => new THREE.Matrix4().makeTranslation(-b[0], -b[1], -b[2]));
+  const sk = new THREE.SkinnedMesh(bg, RM); sk.castShadow = !ghost; cast.push(sk); lean.add(sk);
+  bones.forEach(b => lean.add(b));
+  sk.bind(new THREE.Skeleton(bones, inv), new THREE.Matrix4());
+  const dirs = rest.map(b => new THREE.Vector3(b[3] - b[0], b[4] - b[1], b[5] - b[2]).normalize());
+  const body = { skin: sk, bones, dirs, head: mesh(A['r_head' + sfx], RM), helmet: mesh(A['r_helmet' + sfx], RM), glasses: mesh(A.r_glasses, RM),
+    footL: mesh(A['r_shoe' + sfx], RM), footR: mesh(A['r_shoe' + sfx], RM) };
+  return { o, root, lean, bike, wR, wF, crank, body, M, cast, dist: 0, A: true };
+}
+function g3Bone(B, i, ax, ay, az, bx, by, bz){
+  const b = B.bones[i]; b.position.set(ax, ay, az);
+  b.quaternion.setFromUnitVectors(B.dirs[i], _v1.set(bx - ax, by - ay, bz - az).normalize());
+}
+function g3PoseA(r, crankA, stand){
+  const B = r.body, st = stand || 0;
+  const cr = -crankA;
+  r.crank.rotation.z = cr;
+  const hx = -0.16 + 0.12 * st, hy = 0.95 + 0.1 * st;           // maluc
+  const nx = hx + 0.46 - 0.1 * st, ny = hy + 0.3 + 0.12 * st;   // base del coll
+  r.bike.rotation.x = st * 0.12 * Math.sin(crankA);
+  const sway = st * 0.012 * Math.sin(crankA);                    // el cos es balanceja una mica en pedalar
+  g3Bone(B, 0, hx, hy, 0, nx, ny, sway);
+  const tx = nx - hx, ty = ny - hy, tl = Math.hypot(tx, ty);
+  const shx = hx + tx * 0.86 - ty / tl * 0.015, shy = hy + ty * 0.86 + tx / tl * 0.015;
+  const hdx = nx + 0.1, hdy = ny + 0.12;
+  g3Bone(B, 1, nx, ny, sway, hdx, hdy, sway);
+  B.head.position.set(hdx, hdy, sway); B.head.rotation.z = 0.05;
+  B.glasses.position.set(hdx + 0.002, hdy + 0.012, sway); B.glasses.rotation.z = 0.05;
+  B.helmet.position.set(hdx - 0.004, hdy + 0.012, sway);
+  for (let q = 0; q < 2; q++){
+    const sd = q ? 1 : -1, ph = cr + (q ? Math.PI : 0);
+    const px = 0.17 * Math.cos(ph), py = 0.3 + 0.17 * Math.sin(ph), pz = sd * 0.112;
+    // peu: la cala damunt del pedal; el turmell queda darrere i amunt; el taló baixa a dalt del cicle
+    const fr = 0.18 * Math.sin(ph) - 0.06, fc = Math.cos(fr), fs = Math.sin(fr);
+    const ox = px - 0.06 * fc - 0.024 * fs, oy = py + 0.012 - 0.06 * fs + 0.024 * fc;
+    const ax = ox - 0.03 * fc - 0.065 * fs, ay = oy - 0.03 * fs + 0.065 * fc, az = pz;
+    const hz = sd * 0.085;
+    const K = ik2(hx, hy, hz, ax, ay, az, 0.44, 0.43, 1, 0.25, sd * 0.05), kx = K[0], ky = K[1], kz = K[2];
+    g3Bone(B, 2 + q, hx, hy, hz, kx, ky, kz);
+    g3Bone(B, 4 + q, kx, ky, kz, ax, ay, az);
+    const F = q ? B.footR : B.footL; F.position.set(ox, oy, pz); F.rotation.z = fr;
+    const sz = sd * 0.175, hx2 = HOOD[0] - 0.02, hy2 = HOOD[1], hz2 = sd * HOOD[2];
+    const E = ik2(shx, shy, sz + sway, hx2, hy2, hz2, 0.29, 0.28, -0.2, -1, sd * 0.55), ex = E[0], ey = E[1], ez = E[2];
+    g3Bone(B, 6 + q, shx, shy, sz + sway, ex, ey, ez);
+    g3Bone(B, 8 + q, ex, ey, ez, hx2, hy2, hz2);
+  }
+}
 function g3Rider(o){
+  if (G3A.ready) return g3RiderA(o);
   const ghost = !!o.ghost;
   const std = (c, r, m) => { const mt = new THREE.MeshStandardMaterial({ color: c, roughness: r == null ? 0.6 : r, metalness: m || 0 });
     if (ghost){ mt.transparent = true; mt.opacity = 0.32; mt.depthWrite = false; } return mt; };
@@ -4834,6 +5319,7 @@ function ik2(sx, sy, sz, tx, ty, tz, a, b, px, py, pz){
   return o;
 }
 function g3Pose(r, crankA, stand){
+  if (r.A) return g3PoseA(r, crankA, stand);
   const B = r.body, st = stand || 0;
   // el pedal va endavant per dalt i enrere per baix (sentit horari vist des de la dreta)
   const cr = -crankA;
@@ -5042,6 +5528,7 @@ function saveActivity(){
     asc: R.route ? Math.round(R.ascent) : null, ftp, laps: loop ? R.lapTimes.length : null,
     bestLap: loop && R.lapTimes.length ? Math.round(Math.min(...R.lapTimes)) : null
   };
+  if (R.race && R.race.res) a.race = R.race.res;
   a.id = hashId(a.ts + '|' + a.name);
   ACT.put(a);
 }
@@ -5061,7 +5548,8 @@ function renderHistory(){
     c.innerHTML = '<div class="top"><div class="wname">' + esc(a.name) + '</div><div class="wmeta">' + esc(date) + '</div></div>' +
       '<div class="hnums"><span><b>' + fmt(a.sec) + '</b></span><span><b>' + a.avgP + '</b> W</span><span>NP <b>' + a.np + '</b></span><span>TSS <b>' + a.tss + '</b></span>' +
       (a.km ? '<span><b>' + fmt1(a.km) + '</b> km</span>' : '') + (a.asc ? '<span>+<b>' + a.asc + '</b> m</span>' : '') +
-      (a.avgH ? '<span>♥ <b>' + a.avgH + '</b></span>' : '') + (a.laps ? '<span><b>' + a.laps + '</b> voltes · millor <b>' + fmt(a.bestLap) + '</b></span>' : '') + '</div>';
+      (a.avgH ? '<span>♥ <b>' + a.avgH + '</b></span>' : '') + (a.laps ? '<span><b>' + a.laps + '</b> voltes · millor <b>' + fmt(a.bestLap) + '</b></span>' : '') +
+      (a.race ? '<span>Cursa · <b>' + (a.race.fin ? ordCa(a.race.pos) + '</b> de ' + a.race.n : 'abandó</b>') + '</span>' : '') + '</div>';
     const row = document.createElement('div'); row.className = 'row';
     const del = document.createElement('button'); del.className = 'sec danger'; del.textContent = 'Esborra';
     del.onclick = () => { if (confirm('Vols esborrar aquesta sessió de l’historial?')){ ACT.del(a.id); renderHistory(); } };
@@ -5238,6 +5726,8 @@ let installEvt = null;
 window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; $('installBtn').style.display = ''; });
 window.addEventListener('appinstalled', () => { installEvt = null; $('installBtn').style.display = 'none'; toast('App instal·lada'); });
 async function installApp(){ if (!installEvt) return; installEvt.prompt(); try { await installEvt.userChoice; } catch(e){} installEvt = null; $('installBtn').style.display = 'none'; }
+g3LoadAssets();
+setTimeout(heroStats, 0);
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('sw.js').catch(e => console.warn('SW', e));
 
 renderList();
